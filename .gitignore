@@ -1,0 +1,9 @@
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Node / Python temp files
+node_modules/
+*.pyc
+__pycache__/

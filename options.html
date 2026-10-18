@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ContextSense Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="settings-container">
+    <header class="header">
+      <div class="logo-area">
+        <img src="icons/icon48.png" alt="ContextSense" class="logo-img">
+        <div>
+          <h1>ContextSense Settings</h1>
+          <p class="subtitle">AI-powered contextual word definitions for any webpage</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="settings-card">
+      <div id="status-banner" class="status-banner hidden"></div>
+
+      <div class="section-title">AI Provider Configuration</div>
+      <p class="section-desc">Configure any OpenAI-compatible API endpoint (OpenAI, OpenRouter, Groq, Ollama, etc.).</p>
+
+      <!-- Provider Preset Selector -->
+      <div class="form-group">
+        <label for="preset-select">Quick Preset</label>
+        <select id="preset-select" class="form-control">
+          <option value="openai">OpenAI (Default - gpt-4o-mini)</option>
+          <option value="openrouter">OpenRouter (openrouter.ai/api/v1)</option>
+          <option value="groq">Groq (api.groq.com/openai/v1)</option>
+          <option value="ollama">Local Ollama (localhost:11434/v1)</option>
+          <option value="custom">Custom Endpoint</option>
+        </select>
+      </div>
+
+      <!-- Endpoint URL -->
+      <div class="form-group">
+        <label for="api-endpoint">
+          API Endpoint URL
+          <span class="required">*</span>
+        </label>
+        <input type="url" id="api-endpoint" class="form-control" placeholder="https://api.openai.com/v1/chat/completions" required spellcheck="false">
+        <span class="field-hint">Must be an OpenAI-compatible /chat/completions endpoint.</span>
+      </div>
+
+      <!-- Model Name -->
+      <div class="form-group">
+        <label for="api-model">
+          Model Name
+          <span class="required">*</span>
+        </label>
+        <input type="text" id="api-model" class="form-control" placeholder="gpt-4o-mini" required spellcheck="false">
+        <span class="field-hint">e.g., <code>gpt-4o-mini</code>, <code>gpt-4o</code>, <code>llama-3.1-8b-instant</code></span>
+      </div>
+
+      <!-- API Key -->
+      <div class="form-group">
+        <label for="api-key">
+          API Key
+          <span class="required">*</span>
+        </label>
+        <div class="password-wrapper">
+          <input type="password" id="api-key" class="form-control" placeholder="sk-..." spellcheck="false" autocomplete="off">
+          <button type="button" id="toggle-key-visibility" class="toggle-visibility-btn" title="Show/Hide API Key">
+            <svg id="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </button>
+        </div>
+        <span class="field-hint">Your key is stored securely in <code>chrome.storage.local</code> in this browser.</span>
+      </div>
+
+      <!-- Actions -->
+      <div class="button-row">
+        <button type="button" id="test-btn" class="btn btn-secondary">
+          <span class="btn-spinner hidden" id="test-spinner"></span>
+          <span class="btn-text">Test Connection</span>
+        </button>
+        <div class="right-actions">
+          <button type="button" id="reset-btn" class="btn btn-text-only">Reset Defaults</button>
+          <button type="button" id="save-btn" class="btn btn-primary">Save Settings</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Security & Privacy Notice -->
+    <aside class="notice-card">
+      <div class="notice-header">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <h3>Privacy & Security Notice</h3>
+      </div>
+      <ul class="notice-list">
+        <li><strong>Local Storage:</strong> Your API key is stored strictly within your browser's local extension storage (<code>chrome.storage.local</code>).</li>
+        <li><strong>No Intermediary Servers:</strong> API requests are sent directly from your browser to your configured provider. ContextSense has no external backend, telemetry, or third-party servers.</li>
+        <li><strong>Minimal Context:</strong> Only the selected word and the immediate enclosing sentence/paragraph are sent to the AI model to infer contextual meaning. Full web pages and conversations are never read, sent, or saved.</li>
+        <li><strong>API Costs:</strong> Direct API calls consume tokens billed to your API provider account. Please note that a standard ChatGPT Plus or Team subscription does <em>not</em> include OpenAI API platform credits.</li>
+        <li><strong>DOM Safety:</strong> Your API key is never injected into web pages or accessible to page scripts.</li>
+      </ul>
+    </aside>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
